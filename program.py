@@ -1,9 +1,6 @@
-import time as t
 import tkinter as tk
-
-def countdowntimer():
-
-    
+import datetime
+import winsound as ws
 
 # --- Main Program ---
 # Create Window
