@@ -1,5 +1,6 @@
 import tkinter as tk
 import datetime
+from tkinter.constants import BOTH, LEFT, TRUE
 
 class Countdown(tk.Frame):
     def __init__(self, master):
@@ -10,11 +11,11 @@ class Countdown(tk.Frame):
         self._timer_on = False
 
     def show_widgets(self):
-        self.label.pack()
-        self.entry.pack()
-        self.start.pack()
-        self.stop.pack()
-        self.reset.pack()
+        self.label.grid(row=0, column=2)
+        self.entry.grid(row=1, column=2)
+        self.start.grid(row=2, column=2)
+        self.stop.grid(row=3, column=2)
+        self.reset.grid(row=4, column=2)
 
     def create_widgets(self):
         self.label = tk.Label (self, text = "Enter a time")
@@ -42,9 +43,9 @@ class Countdown(tk.Frame):
         self.stop.forget()
         self.reset.forget()
 
-        self.start.pack()
-        self.stop.pack()
-        self.reset.pack()
+        self.start.grid(row=2, column=2)
+        self.stop.grid(row=3, column=2)
+        self.reset.grid(row=4, column=2)
 
     def stop_button(self):
         self.seconds_left = int(self.entry.get())
@@ -58,9 +59,9 @@ class Countdown(tk.Frame):
         self.stop.forget()
         self.reset.forget()
 
-        self.start.pack()
-        self.stop.pack()
-        self.reset.pack()
+        self.start.grid(row=2, column=2)
+        self.stop.grid(row=3, column=2)
+        self.reset.grid(row=4, column=2)
 
     def stop_timer(self):
         if self._timer_on:
@@ -70,12 +71,11 @@ class Countdown(tk.Frame):
     def convert_seconds_left_to_time(self):
         return datetime.timedelta(seconds = self.seconds_left)
 
-    
+
     
 
 # --- Main Program ---
 # Create Window
-
 root = tk.Tk()
 root.title("Scoreboard Program")
 root.geometry("1920x1080")
@@ -86,6 +86,13 @@ root.config(bg = '#545f66')
 
 # Create elements
 
+left_frame = tk.Frame(root)
+left_frame.pack(fill=BOTH, expand=TRUE, side=LEFT)
+
+label_one = tk.Button(left_frame, text = "One", bg = "Blue", fg = "White")
+label_one.grid(padx=40,pady=40)
+
+# Actual Scoreboard Numbers
 
 # Global Variables
 countdown = Countdown(root)
