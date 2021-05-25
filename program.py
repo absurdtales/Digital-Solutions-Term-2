@@ -1,78 +1,51 @@
 import tkinter as tk
-import datetime
-from tkinter.constants import BOTH, LEFT, TRUE
+from tkinter.constants import BOTH, LEFT, RIGHT, TRUE
 
-class Countdown(tk.Frame):
-    def __init__(self, master):
-        super().__init__(master)
-        self.create_widgets()
-        self.show_widgets()
-        self.seconds_left = 0
-        self._timer_on = False
+def format_time(time):
+    minutes = time // 60
+    seconds = time % 60
+    return f"{minutes}:{seconds}"
 
-    def show_widgets(self):
-        self.label.grid(row=0, column=2)
-        self.entry.grid(row=1, column=2)
-        self.start.grid(row=2, column=2)
-        self.stop.grid(row=3, column=2)
-        self.reset.grid(row=4, column=2)
+def update():
+    if root.running:
+        root.current_time -= 1
+    time_lb.config(text=format_time(root.current_time))
+    time_lb.after(1000,update)
 
-    def create_widgets(self):
-        self.label = tk.Label (self, text = "Enter a time")
-        self.entry = tk.Entry (self, justify="center")
-        self.entry.focus_set()
-        self.reset = tk.Button (self, text = "Reset", command = self.reset_button)
-        self.stop = tk.Button (self, text = "Stop", command = self.stop_button)
-        self.start = tk.Button (self, text = "Start", command = self.start_button)
+def start():
+    root.running = True
+
+def pause():
+    root.running = False
+
+def reset():
+    root.running = False
+    root.current_time = root.time
+
+def set_time():
+    top = tk.Toplevel()
+    top.title("Set Time")
+    top.geometry("200x150")
     
-    def countdown(self):
-        self.label["text"] = self.convert_seconds_left_to_time()
+    time = tk.StringVar(top,root.time)
 
-        if self.seconds_left:
-            self.seconds_left -=1
-            self._timer_on = self.after(1000, self.countdown)
-        else:
-            self._timer_on = False
+    def ok():
+        root.time = int(time.get())
+        root.current_time = root.time
+        top.destroy()
+
+    tk.Label(top,text="Enter time in seconds").grid(row=0,column=0,columnspan=2)
     
-    def reset_button(self):
-        self.seconds_left = 0
-        self.stop_timer()
-        self._timer_on = False
-        self.label["text"] = "Enter a time"
-        self.start.forget()
-        self.stop.forget()
-        self.reset.forget()
-
-        self.start.grid(row=2, column=2)
-        self.stop.grid(row=3, column=2)
-        self.reset.grid(row=4, column=2)
-
-    def stop_button(self):
-        self.seconds_left = int(self.entry.get())
-        self.stop_timer()
-
-    def start_button(self):
-        self.seconds_left = int(self.entry.get())
-        self.stop_timer()
-        self.countdown()
-        self.start.forget()
-        self.stop.forget()
-        self.reset.forget()
-
-        self.start.grid(row=2, column=2)
-        self.stop.grid(row=3, column=2)
-        self.reset.grid(row=4, column=2)
-
-    def stop_timer(self):
-        if self._timer_on:
-            self.after_cancel(self._timer_on)
-            self._timer_on = False
-
-    def convert_seconds_left_to_time(self):
-        return datetime.timedelta(seconds = self.seconds_left)
-
-
+    new_time_ent = tk.Entry(top,textvariable=time)
+    new_time_ent.grid(row=1,column=0,columnspan=2)
     
+    ok_btn = tk.Button(top,text="Ok",command=ok)
+    ok_btn.grid(row=2,column=0)
+
+    cancel_btn = tk.Button(top,text="Cancel",command=top.destroy)
+    cancel_btn.grid(row=2,column=1)
+
+
 
 # --- Main Program ---
 # Create Window
@@ -81,21 +54,36 @@ root.title("Scoreboard Program")
 root.geometry("1920x1080")
 root.resizable = (False,False)
 
+root.time = 330
+root.current_time = root.time
+root.running = False
+
 # Configure
 root.config(bg = '#545f66')
 
 # Create elements
 
-left_frame = tk.Frame(root)
-left_frame.pack(fill=BOTH, expand=TRUE, side=LEFT)
+photo_1 = tk.PhotoImage(file = "/Users/hunterbarrett/Desktop/2021/Digital Solutions/Term 2 Work/mock ups gents/icons/noun_play_3923854.png")
+photo_1_image = photo_1.subsample(3, 3)
 
-label_one = tk.Button(left_frame, text = "One", bg = "Blue", fg = "White")
-label_one.grid(padx=40,pady=40)
+time_lb = tk.Label(root,text=format_time(root.current_time),font=("Rockwell",150))
+time_lb.grid(row=0,column=0)
+
+start_btn = tk.Button(root,text="Start",font=("Rockwell",30),command=start)
+start_btn.grid(row=1,column=0, pady=10, padx=30, )
+
+pause_btn = tk.Button(root,text="Pause",font=("Rockwell",30),command=pause)
+pause_btn.grid(row=2,column=0, columnspan=4, pady=10, padx=30)
+
+reset_btn = tk.Button(root,text="Reset",font=("Rockwell",30),command=reset)
+reset_btn.grid(row=3,column=0,columnspan=10, pady=10, padx=30)
+
+set_btn = tk.Button(root,text="Set",font=("Rockwell",30),command=set_time)
+set_btn.grid(row=4,column=0,columnspan=4, pady=10, padx=30)
 
 # Actual Scoreboard Numbers
 
 # Global Variables
-countdown = Countdown(root)
-countdown.pack()
 
+time_lb.after(1000,update())
 root.mainloop()
