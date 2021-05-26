@@ -70,16 +70,26 @@ middle_frame = tk.Frame(root)
 middle_frame.grid(row=0, column=1, sticky="n")
 
 right_frame = tk.Frame(root)
-right_frame.grid(row=0, column=2)
+right_frame.grid(row=0, column=2, sticky = "n")
 
-save_button_frame = tk.Frame(left_frame, bg = '#545f66')
+# Corner left of screen
+save_button_frame = tk.Frame(left_frame)
+save_button_frame.config(bg = '#545f66')
 save_button_frame.grid(row=0, column=0, sticky="NW")
 
+# Left screen frames
 blue_team_frame = tk.Frame(left_frame, padx=50, pady=120, bg = "#00aeef", highlightbackground="black", highlightthickness=5)
 blue_team_frame.grid(row=0, column=1)
 
+blue_config_frame = tk.Frame(left_frame, padx=50, pady=20, bg = '#545f66')
+blue_config_frame.grid(row=1, column=1)
+
+# Right screen frames
 red_team_frame = tk.Frame(right_frame, padx=50, pady=120, bg="#ba014e", highlightbackground="black", highlightthickness=5)
 red_team_frame.grid(row=0, column=0)
+
+red_config_frame = tk.Frame(right_frame, padx=50, pady=20, bg = '#545f66')
+red_config_frame.grid(row=1, column=1)
 
 # Image files/Resizing
 photo_1 = tk.PhotoImage(file = "/Users/hunterbarrett/Desktop/2021/Digital Solutions/Term 2 Work/mock ups gents/icons/noun_play_3923854.png")
@@ -110,16 +120,44 @@ reset_btn.grid(row=3,column=0, sticky="WE", pady=10, padx=30)
 set_btn = tk.Button(middle_frame,text="Set",font=("Rockwell",30),command=set_time)
 set_btn.grid(row=4,column=0,sticky="WE", pady=10, padx=30)
 
-# Left of the Screen
+# Corner Left of the Screen
 save_btn = tk.Button(save_button_frame, image = photo_4_image, padx=10, pady=10)
 save_btn.grid(row=0, column=0)
 
+load_btn = tk.Button(save_button_frame, text="Load", font=("Rockwell",12), padx=15, pady=20)
+load_btn.grid(row=1, column=0)
+
+# Left of the Screen
 score_blue_lb = tk.Label(blue_team_frame, text="0", font=("Rockwell",250), bg="#00aeef", fg="white")
 score_blue_lb.grid(row=0, column=0,sticky = "w")
+
+blue_config_btn_1 = tk.Button(blue_config_frame, text="+1", font=("Rockwell", 20), padx=10, pady=10, bg = '#545f66')
+blue_config_btn_1.grid(row=0, column=0)
+
+blue_config_btn_2 = tk.Button(blue_config_frame, text="+1", font=("Rockwell", 20), padx=10, pady=10, bg = '#545f66')
+blue_config_btn_2.grid(row=0, column=1)
+
+blue_config_btn_3 = tk.Button(blue_config_frame, text="+1", font=("Rockwell", 20), padx=10, pady=10, bg = '#545f66')
+blue_config_btn_3.grid(row=0, column=2)
+
+blue_config_btn_4 = tk.Button(blue_config_frame, text="Reset Score", font=("Rockwell", 20), padx=10, pady=10, bg = '#545f66')
+blue_config_btn_4.grid(row=0, column=3)
 
 # Right of the Screen
 score_red_lb = tk.Label(red_team_frame, text="0", font =("Rockwell",250), bg="#ba014e", fg="white")
 score_red_lb.grid(row=0, column=0, sticky="e")
+
+red_config_btn_1 = tk.Button(red_config_frame, text="+1", font=("Rockwell", 20), padx=10, pady=10, bg = '#545f66')
+red_config_btn_1.grid(row=0, column=0)
+
+red_config_btn_2 = tk.Button(red_config_frame, text="+1", font=("Rockwell", 20), padx=10, pady=10, bg = '#545f66')
+red_config_btn_2.grid(row=0, column=1)
+
+red_config_btn_3 = tk.Button(red_config_frame, text="+1", font=("Rockwell", 20), padx=10, pady=10, bg = '#545f66')
+red_config_btn_3.grid(row=0, column=2)
+
+red_config_btn_4 = tk.Button(red_config_frame, text="Reset Score", font=("Rockwell", 20), padx=10, pady=10, bg = '#545f66')
+red_config_btn_4.grid(row=0, column=3)
 
 
 # Actual Scoreboard Numbers
