@@ -228,6 +228,31 @@ def set_score_3b():
     cancel_btn = tk.Button(top, text = "Cancel", command=top.destroy)
     cancel_btn.grid(row=2, column=1)
 
+
+def set_red_name():
+    top = tk.Toplevel()
+    top.title("Set Name")
+    top.geometry = ("200x150")
+
+    name = tk.StringVar(top, root.set_name)
+
+    def ok():
+        root.set_name = str(name.get())
+        root.current_name = root.set_name
+        red_team_name_lb.config(text=(root.current_name))
+        top.destroy()
+    tk.Label(top, text="Enter Name").grid(row=0,column=0,columnspan=2)
+
+    new_name_ent = tk.Entry(top, textvariable= name)
+    new_name_ent.grid(row=1, column=0, columnspan = 2)
+
+    ok_btn = tk.Button(top, text = "Ok", command=ok)
+    ok_btn.grid(row=2, column=0)
+
+    cancel_btn = tk.Button(top, text = "Cancel", command=top.destroy)
+    cancel_btn.grid(row=2, column=1)
+
+
 # --- Main Program ---
 # Create Window
 root = tk.Tk()
@@ -339,7 +364,7 @@ load_btn = tk.Button(save_button_frame, text="Load", font=("Rockwell",12), padx=
 load_btn.grid(row=1, column=0)
 
 # Left of the Screen
-score_blue_lb = tk.Label(blue_team_frame, text="0", font=("Rockwell",450), bg="#00aeef", fg="white")
+score_blue_lb = tk.Label(blue_team_frame, text="0", font=("Rockwell",300), bg="#00aeef", fg="white")
 score_blue_lb.grid(row=0, column=0,sticky = "w")
 
 blue_config_btn_1 = tk.Button(blue_config_frame, text="0", font=("Rockwell", 20), padx=10, pady=10, command= set_score_1a)
@@ -364,29 +389,35 @@ blue_config_add_btn_3 = tk.Button(blue_config_frame, text="Add", font=("Rockwell
 blue_config_add_btn_3.grid(row=1, column=2)
 
 # Right of the Screen
-score_red_lb = tk.Label(red_team_frame, text="0", font =("Rockwell",450), bg="#ba014e", fg="white")
+score_red_lb = tk.Label(red_team_frame, text="0", font =("Rockwell",300), bg="#ba014e", fg="white")
 score_red_lb.grid(row=0, column=0, sticky="e")
 
+red_team_name_lb = tk.Label(red_config_frame, text="Enter Name", font=("Rockwell", 20), bg= "#ba014e", fg="white")
+red_team_name_lb.grid(row=0, column=0, sticky="e")
+
+red_team_name_set_btn = tk.Button(red_config_frame, text= "Set", font=("Rockwell", 15), padx=10, pady=10, command=set_red_name)
+red_team_name_set_btn.grid(row=0, column=1)
+
 red_config_btn_1 = tk.Button(red_config_frame, text="0", font=("Rockwell", 20), padx=10, pady=10, command = set_score_1b)
-red_config_btn_1.grid(row=0, column=0)
+red_config_btn_1.grid(row=1, column=0)
 
 red_config_btn_2 = tk.Button(red_config_frame, text="0", font=("Rockwell", 20), padx=10, pady=10, command = set_score_2b)
-red_config_btn_2.grid(row=0, column=1)
+red_config_btn_2.grid(row=1, column=1)
 
 red_config_btn_3 = tk.Button(red_config_frame, text="0", font=("Rockwell", 20), padx=10, pady=10, command = set_score_3b)
-red_config_btn_3.grid(row=0, column=2)
+red_config_btn_3.grid(row=1, column=2)
 
 red_config_btn_4 = tk.Button(red_config_frame, text="Reset Score", font=("Rockwell", 20), padx=10, pady=10, command = reset_red)
-red_config_btn_4.grid(row=0, column=3)
+red_config_btn_4.grid(row=1, column=3)
 
 red_config_add_btn_1 = tk.Button(red_config_frame, text="Add", font=("Rockwell", 15), padx=5, pady=5, command = apply_1b)
-red_config_add_btn_1.grid(row=1, column=0)
+red_config_add_btn_1.grid(row=2, column=0)
 
 red_config_add_btn_2 = tk.Button(red_config_frame, text="Add", font=("Rockwell", 15), padx=5, pady=5, command = apply_2b)
-red_config_add_btn_2.grid(row=1, column=1)
+red_config_add_btn_2.grid(row=2, column=1)
 
 red_config_add_btn_3 = tk.Button(red_config_frame, text="Add", font=("Rockwell", 15), padx=5, pady=5, command = apply_3b)
-red_config_add_btn_3.grid(row=1, column=2)
+red_config_add_btn_3.grid(row=2, column=2)
 
 # Actual Scoreboard Numbers
 
