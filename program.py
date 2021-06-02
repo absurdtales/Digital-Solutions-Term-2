@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter.constants import ANCHOR, BOTH, LEFT, N, RIGHT, TOP, TRUE
 import subprocess
 
-subprocess.call(["afplay", "/Users/hunterbarrett/Desktop/Hunter's Files/music yo/Animal Crossing CF Hours/039-2-am-normal-.mp3"])
+
 
 def format_time(time):
     minutes = time // 60
