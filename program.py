@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter.constants import ANCHOR, BOTH, LEFT, N, RIGHT, TOP, TRUE
 import pygame
 
-
+pygame.mixer.init()
 
 def format_time(time):
     minutes = time // 60
@@ -14,11 +14,17 @@ def update():
         root.current_time -= 1
     if root.current_time <=0:
         root.running=False
+        pygame.mixer.music.load("/Users/hunterbarrett/Desktop/2021/Digital Solutions/Term 2 Work/FIA2 Resources/sound effects/Wrong Buzzer Sound Effect.mp3")
+        pygame.mixer.music.play(Loops=0)
     time_lb.config(text=format_time(root.current_time))
     time_lb.after(1000,update)
 
 def start():
-    root.running = True
+    pygame.mixer.music.load("/Users/hunterbarrett/Desktop/2021/Digital Solutions/Term 2 Work/FIA2 Resources/sound effects/Free 3 second intro countdown with tunnel effect sound and AI robot voice.mp3")
+    pygame.mixer.music.play(0)
+    if pygame.mixer.music.get_busy() == False:
+        root.running = True
+
 
 def pause():
     root.running = False
