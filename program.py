@@ -1,5 +1,8 @@
 import tkinter as tk
 from tkinter.constants import ANCHOR, BOTH, LEFT, N, RIGHT, TOP, TRUE
+import subprocess
+
+subprocess.call(["afplay", "/Users/hunterbarrett/Desktop/Hunter's Files/music yo/Animal Crossing CF Hours/039-2-am-normal-.mp3"])
 
 def format_time(time):
     minutes = time // 60
@@ -229,24 +232,46 @@ def set_score_3b():
     cancel_btn.grid(row=2, column=1)
 
 
-def set_red_name():
+def set_blue_name():
     top = tk.Toplevel()
-    top.title("Set Name")
+    top.title("Set Score")
     top.geometry = ("200x150")
 
-    name = tk.StringVar(top, root.set_name)
+    blue = tk.StringVar(top, root.set_blue)
 
     def ok():
-        root.set_name = str(name.get())
-        root.current_name = root.set_name
-        red_team_name_lb.config(text=(root.current_name))
+        root.set_blue = int(blue.get())
+        blue_team_name_lb.config(text=(root.set_blue))
         top.destroy()
-    tk.Label(top, text="Enter Name").grid(row=0,column=0,columnspan=2)
+    tk.Label(top,text="Enter Score").grid(row=0,column=0,columnspan=2)
 
-    new_name_ent = tk.Entry(top, textvariable= name)
-    new_name_ent.grid(row=1, column=0, columnspan = 2)
+    new_score_ent = tk.Entry(top, textvariable= blue)
+    new_score_ent.grid(row=1, column=0, columnspan = 2)
 
-    ok_btn = tk.Button(top, text = "Ok", command=ok)
+    ok_btn = tk.Button(top, text="Ok", command=ok)
+    ok_btn.grid(row=2, column=0)
+
+    cancel_btn = tk.Button(top, text = "Cancel", command=top.destroy)
+    cancel_btn.grid(row=2, column=1)
+
+
+def set_red_name():
+    top = tk.Toplevel()
+    top.title("Set Score")
+    top.geometry = ("200x150")
+
+    red = tk.StringVar(top, root.set_red)
+
+    def ok():
+        root.set_red = int(red.get())
+        red_team_name_lb.config(text=(root.set_red))
+        top.destroy()
+    tk.Label(top,text="Enter Score").grid(row=0,column=0,columnspan=2)
+
+    new_score_ent = tk.Entry(top, textvariable= red)
+    new_score_ent.grid(row=1, column=0, columnspan = 2)
+
+    ok_btn = tk.Button(top, text="Ok", command=ok)
     ok_btn.grid(row=2, column=0)
 
     cancel_btn = tk.Button(top, text = "Cancel", command=top.destroy)
@@ -317,15 +342,21 @@ save_button_frame.grid(row=0, column=0, sticky="NW")
 blue_team_frame = tk.Frame(left_frame, padx=50, pady=50, bg = "#00aeef", highlightbackground="black", highlightthickness=5)
 blue_team_frame.grid(row=0, column=1)
 
+blue_config_name_frame = tk.Frame(left_frame, padx=50, pady=20)
+blue_config_name_frame.grid(row=1, column=1)
+
 blue_config_frame = tk.Frame(left_frame, padx=50, pady=20)
-blue_config_frame.grid(row=1, column=1)
+blue_config_frame.grid(row=2, column=1)
 
 # Right screen frames
 red_team_frame = tk.Frame(right_frame, padx=50, pady=50, bg="#ba014e", highlightbackground="black", highlightthickness=5)
 red_team_frame.grid(row=0, column=0)
 
+red_config_name_frame = tk.Frame(right_frame, padx=50, pady=20)
+red_config_name_frame.grid(row=1, column=0)
+
 red_config_frame = tk.Frame(right_frame, padx=50, pady=20)
-red_config_frame.grid(row=1, column=0)
+red_config_frame.grid(row=2, column=0)
 
 # Image files/Resizing
 photo_1 = tk.PhotoImage(file = "/Users/hunterbarrett/Desktop/2021/Digital Solutions/Term 2 Work/mock ups gents/icons/noun_play_3923854.png")
@@ -367,36 +398,42 @@ load_btn.grid(row=1, column=0)
 score_blue_lb = tk.Label(blue_team_frame, text="0", font=("Rockwell",300), bg="#00aeef", fg="white")
 score_blue_lb.grid(row=0, column=0,sticky = "w")
 
+blue_team_name_lb = tk.Label(blue_config_name_frame, text="Enter Name", font=("Rockwell", 20), padx=30, pady=10, bg= "#00aeef", fg="white")
+blue_team_name_lb.grid(row=0, column=2, sticky="n")
+
+blue_team_name_set_btn = tk.Button(blue_config_name_frame, text= "Set", font=("Rockwell", 15), padx=10, pady=10, command=set_blue_name)
+blue_team_name_set_btn.grid(row=0, column=3, columnspan=4, sticky="w")
+
 blue_config_btn_1 = tk.Button(blue_config_frame, text="0", font=("Rockwell", 20), padx=10, pady=10, command= set_score_1a)
-blue_config_btn_1.grid(row=0, column=0)
+blue_config_btn_1.grid(row=2, column=0)
 
 blue_config_btn_2 = tk.Button(blue_config_frame, text="0", font=("Rockwell", 20), padx=10, pady=10, command= set_score_2a)
-blue_config_btn_2.grid(row=0, column=1)
+blue_config_btn_2.grid(row=2, column=1)
 
 blue_config_btn_3 = tk.Button(blue_config_frame, text="0", font=("Rockwell", 20), padx=10, pady=10, command = set_score_3a)
-blue_config_btn_3.grid(row=0, column=2)
+blue_config_btn_3.grid(row=2, column=2)
 
 blue_config_btn_4 = tk.Button(blue_config_frame, text="Reset Score", font=("Rockwell", 20), padx=10, pady=10, command = reset_blue)
-blue_config_btn_4.grid(row=0, column=3)
+blue_config_btn_4.grid(row=2, column=3)
 
 blue_config_add_btn_1 = tk.Button(blue_config_frame, text="Add", font=("Rockwell", 15), padx=5, pady=5, command= apply_1a)
-blue_config_add_btn_1.grid(row=1, column=0)
+blue_config_add_btn_1.grid(row=3, column=0)
 
 blue_config_add_btn_2 = tk.Button(blue_config_frame, text="Add", font=("Rockwell", 15), padx=5, pady=5, command = apply_2a)
-blue_config_add_btn_2.grid(row=1, column=1)
+blue_config_add_btn_2.grid(row=3, column=1)
 
 blue_config_add_btn_3 = tk.Button(blue_config_frame, text="Add", font=("Rockwell", 15), padx=5, pady=5, command = apply_3a)
-blue_config_add_btn_3.grid(row=1, column=2)
+blue_config_add_btn_3.grid(row=3, column=2)
 
 # Right of the Screen
 score_red_lb = tk.Label(red_team_frame, text="0", font =("Rockwell",300), bg="#ba014e", fg="white")
 score_red_lb.grid(row=0, column=0, sticky="e")
 
-red_team_name_lb = tk.Label(red_config_frame, text="Enter Name", font=("Rockwell", 20), bg= "#ba014e", fg="white")
-red_team_name_lb.grid(row=0, column=0, sticky="e")
+red_team_name_lb = tk.Label(red_config_name_frame, text="Enter Name", font=("Rockwell", 20), padx=30, pady=10, bg= "#ba014e", fg="white")
+red_team_name_lb.grid(row=0, column=2, sticky="n")
 
-red_team_name_set_btn = tk.Button(red_config_frame, text= "Set", font=("Rockwell", 15), padx=10, pady=10, command=set_red_name)
-red_team_name_set_btn.grid(row=0, column=1)
+red_team_name_set_btn = tk.Button(red_config_name_frame, text= "Set", font=("Rockwell", 15), padx=10, pady=10, command=set_red_name)
+red_team_name_set_btn.grid(row=0, column=3, columnspan=4, sticky="w")
 
 red_config_btn_1 = tk.Button(red_config_frame, text="0", font=("Rockwell", 20), padx=10, pady=10, command = set_score_1b)
 red_config_btn_1.grid(row=1, column=0)
