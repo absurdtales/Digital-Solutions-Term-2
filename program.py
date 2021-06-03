@@ -22,8 +22,7 @@ def update():
 def start():
     pygame.mixer.music.load("/Users/hunterbarrett/Desktop/2021/Digital Solutions/Term 2 Work/FIA2 Resources/sound effects/Free 3 second intro countdown with tunnel effect sound and AI robot voice.mp3")
     pygame.mixer.music.play(0)
-    if pygame.mixer.music.get_busy() == False:
-        root.running = True
+    root.running = True
 
 
 def pause():
@@ -240,7 +239,7 @@ def set_score_3b():
 
 def set_blue_name():
     top = tk.Toplevel()
-    top.title("Set Score")
+    top.title("Set Name")
     top.geometry = ("200x150")
 
     blue = tk.StringVar(top, root.set_blue)
@@ -263,7 +262,7 @@ def set_blue_name():
 
 def set_red_name():
     top = tk.Toplevel()
-    top.title("Set Score")
+    top.title("Set Name")
     top.geometry = ("200x150")
 
     red = tk.StringVar(top, root.set_red)
