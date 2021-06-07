@@ -237,52 +237,6 @@ def set_score_3b():
     cancel_btn.grid(row=2, column=1)
 
 
-def set_blue_name():
-    top = tk.Toplevel()
-    top.title("Set Name")
-    top.geometry = ("200x150")
-
-    blue = tk.StringVar(top, root.set_blue)
-
-    def ok():
-        root.set_blue = int(blue.get())
-        blue_team_name_lb.config(text=(root.set_blue))
-        top.destroy()
-    tk.Label(top,text="Enter Score").grid(row=0,column=0,columnspan=2)
-
-    new_score_ent = tk.Entry(top, textvariable= blue)
-    new_score_ent.grid(row=1, column=0, columnspan = 2)
-
-    ok_btn = tk.Button(top, text="Ok", command=ok)
-    ok_btn.grid(row=2, column=0)
-
-    cancel_btn = tk.Button(top, text = "Cancel", command=top.destroy)
-    cancel_btn.grid(row=2, column=1)
-
-
-def set_red_name():
-    top = tk.Toplevel()
-    top.title("Set Name")
-    top.geometry = ("200x150")
-
-    red = tk.StringVar(top, root.set_red)
-
-    def ok():
-        root.set_red = int(red.get())
-        red_team_name_lb.config(text=(root.set_red))
-        top.destroy()
-    tk.Label(top,text="Enter Score").grid(row=0,column=0,columnspan=2)
-
-    new_score_ent = tk.Entry(top, textvariable= red)
-    new_score_ent.grid(row=1, column=0, columnspan = 2)
-
-    ok_btn = tk.Button(top, text="Ok", command=ok)
-    ok_btn.grid(row=2, column=0)
-
-    cancel_btn = tk.Button(top, text = "Cancel", command=top.destroy)
-    cancel_btn.grid(row=2, column=1)
-
-
 # --- Main Program ---
 # Create Window
 root = tk.Tk()
@@ -403,11 +357,8 @@ load_btn.grid(row=1, column=0)
 score_blue_lb = tk.Label(blue_team_frame, text="0", font=("Rockwell",300), bg="#00aeef", fg="white")
 score_blue_lb.grid(row=0, column=0,sticky = "w")
 
-blue_team_name_lb = tk.Label(blue_config_name_frame, text="Enter Name", font=("Rockwell", 20), padx=30, pady=10, bg= "#00aeef", fg="white")
+blue_team_name_lb = tk.Entry(blue_config_name_frame, text="Enter Name", font=("Rockwell", 20), bg= "#00aeef", fg="white")
 blue_team_name_lb.grid(row=0, column=2, sticky="n")
-
-blue_team_name_set_btn = tk.Button(blue_config_name_frame, text= "Set", font=("Rockwell", 15), padx=10, pady=10, command=set_blue_name)
-blue_team_name_set_btn.grid(row=0, column=3, columnspan=4, sticky="w")
 
 blue_config_btn_1 = tk.Button(blue_config_frame, text="0", font=("Rockwell", 20), padx=10, pady=10, command= set_score_1a)
 blue_config_btn_1.grid(row=2, column=0)
@@ -434,11 +385,8 @@ blue_config_add_btn_3.grid(row=3, column=2)
 score_red_lb = tk.Label(red_team_frame, text="0", font =("Rockwell",300), bg="#ba014e", fg="white")
 score_red_lb.grid(row=0, column=0, sticky="e")
 
-red_team_name_lb = tk.Label(red_config_name_frame, text="Enter Name", font=("Rockwell", 20), padx=30, pady=10, bg= "#ba014e", fg="white")
+red_team_name_lb = tk.Entry(red_config_name_frame, text="Enter Name", font=("Rockwell", 20), bg= "#ba014e", fg="white")
 red_team_name_lb.grid(row=0, column=2, sticky="n")
-
-red_team_name_set_btn = tk.Button(red_config_name_frame, text= "Set", font=("Rockwell", 15), padx=10, pady=10, command=set_red_name)
-red_team_name_set_btn.grid(row=0, column=3, columnspan=4, sticky="w")
 
 red_config_btn_1 = tk.Button(red_config_frame, text="0", font=("Rockwell", 20), padx=10, pady=10, command = set_score_1b)
 red_config_btn_1.grid(row=1, column=0)
