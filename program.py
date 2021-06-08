@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter.constants import ANCHOR, BOTH, CENTER, LEFT, N, RIGHT, TOP, TRUE
 import pygame
-
+import time
 pygame.mixer.init()
 
 def format_time(time):
@@ -15,13 +15,16 @@ def update():
     if root.current_time <=0:
         root.running=False
         pygame.mixer.music.load("/Users/hunterbarrett/Desktop/2021/Digital Solutions/Term 2 Work/FIA2 Resources/sound effects/Wrong Buzzer Sound Effect.mp3")
-        pygame.mixer.music.play(Loops=1)
+        pygame.mixer.music.play(1)
+        pygame.mixer.music.stop
+        reset()
     time_lb.config(text=format_time(root.current_time))
     time_lb.after(1000,update)
-
+     
 def start():
     pygame.mixer.music.load("/Users/hunterbarrett/Desktop/2021/Digital Solutions/Term 2 Work/FIA2 Resources/sound effects/Free 3 second intro countdown with tunnel effect sound and AI robot voice.mp3")
     pygame.mixer.music.play(0)
+    time.sleep(3)
     root.running = True
 
 
@@ -55,6 +58,37 @@ def set_time():
     cancel_btn = tk.Button(top,text="Cancel",command=top.destroy)
     cancel_btn.grid(row=2,column=1)
 
+def SaveValues():
+    with open("string.txt","w") as data_file:
+        data_file.write(blue_team_ent_str.get() + "\n")
+        data_file.write(red_team_ent_str.get() + "\n")
+        data_file.write(str(root.time) + "\n")
+        data_file.write(str(root.set_score_1a) + "\n")
+        data_file.write(str(root.set_score_2a) + "\n")
+        data_file.write(str(root.set_score_3a) + "\n")
+        data_file.write(str(root.set_score_1b) + "\n")
+        data_file.write(str(root.set_score_2b) + "\n")
+        data_file.write(str(root.set_score_3b) + "\n")
+        data_file.write(score_blue_lb.cget("text") + "\n")
+        data_file.write(score_red_lb.cget("text") + "\n")
+
+def OpenValues():
+    with open("string.txt", "r") as data_file:
+        all_lines = data_file.readlines()
+        line_to_read_1 = all_lines[0]
+        line_to_read_2 = all_lines[1]
+        line_to_read_3 = all_lines[2]
+        line_to_read_4 = all_lines[3]
+        line_to_read_5 = all_lines[4]
+        line_to_read_6 = all_lines[5]
+        line_to_read_7 = all_lines[6]
+        line_to_read_8 = all_lines[7]
+        line_to_read_9 = all_lines[8]
+        line_to_read_10 = all_lines[9]
+        line_to_read_11 = all_lines[10]
+
+        blue_team_ent_str = line_to_read_1
+        root.time = line_to_read_3
 
 
 def apply_1a():
@@ -248,7 +282,7 @@ root.time = 330
 root.current_time = root.time
 root.running = False
 
-# Defiining some things
+# Defining some things
 root.sum_blue = 0
 root.current_final_score_blue = root.sum_blue
 
@@ -347,17 +381,18 @@ set_btn = tk.Button(middle_frame,text="Set",font=("Rockwell",50),command=set_tim
 set_btn.grid(row=4,column=0,sticky="WE", pady=10, padx=30)
 
 # Corner Left of the Screen
-save_btn = tk.Button(save_button_frame, image = photo_4_image, padx=10, pady=10)
+save_btn = tk.Button(save_button_frame, image = photo_4_image, padx=10, pady=10, command=SaveValues)
 save_btn.grid(row=0, column=0)
 
-load_btn = tk.Button(save_button_frame, text="Load", font=("Rockwell",12), padx=15, pady=20)
+load_btn = tk.Button(save_button_frame, text="Load", font=("Rockwell",12), padx=15, pady=20, command=OpenValues)
 load_btn.grid(row=1, column=0)
 
 # Left of the Screen
 score_blue_lb = tk.Label(blue_team_frame, text="0", font=("Rockwell",300), bg="#00aeef", fg="white")
 score_blue_lb.grid(row=0, column=0,sticky = "w")
 
-blue_team_name_ent = tk.Entry(blue_config_name_frame, text="Enter Name", font=("Rockwell", 20), bg= "#00aeef", fg="white", justify = CENTER)
+blue_team_ent_str = tk.StringVar(blue_config_name_frame, value='Enter Team Name')
+blue_team_name_ent = tk.Entry(blue_config_name_frame, font=("Rockwell", 20), bg= "#00aeef", fg="white", justify = CENTER, textvariable= blue_team_ent_str)
 blue_team_name_ent.grid(row=0, column=2, sticky="n")
 
 blue_config_btn_1 = tk.Button(blue_config_frame, text="0", font=("Rockwell", 20), padx=10, pady=10, command= set_score_1a)
@@ -385,7 +420,8 @@ blue_config_add_btn_3.grid(row=3, column=2)
 score_red_lb = tk.Label(red_team_frame, text="0", font =("Rockwell",300), bg="#ba014e", fg="white")
 score_red_lb.grid(row=0, column=0, sticky="e")
 
-red_team_name_ent = tk.Entry(red_config_name_frame, text="Enter Name", font=("Rockwell", 20), bg= "#ba014e", fg="white", justify = CENTER)
+red_team_ent_str = tk.StringVar(red_config_name_frame, value='Enter Team Name')
+red_team_name_ent = tk.Entry(red_config_name_frame, text="Enter Name", font=("Rockwell", 20), bg= "#ba014e", fg="white", justify = CENTER, textvariable= red_team_ent_str)
 red_team_name_ent.grid(row=0, column=2, sticky="n")
 
 red_config_btn_1 = tk.Button(red_config_frame, text="0", font=("Rockwell", 20), padx=10, pady=10, command = set_score_1b)
