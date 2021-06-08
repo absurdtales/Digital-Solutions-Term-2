@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter.constants import ANCHOR, BOTH, LEFT, N, RIGHT, TOP, TRUE
+from tkinter.constants import ANCHOR, BOTH, CENTER, LEFT, N, RIGHT, TOP, TRUE
 import pygame
 
 pygame.mixer.init()
@@ -15,7 +15,7 @@ def update():
     if root.current_time <=0:
         root.running=False
         pygame.mixer.music.load("/Users/hunterbarrett/Desktop/2021/Digital Solutions/Term 2 Work/FIA2 Resources/sound effects/Wrong Buzzer Sound Effect.mp3")
-        pygame.mixer.music.play(Loops=0)
+        pygame.mixer.music.play(Loops=1)
     time_lb.config(text=format_time(root.current_time))
     time_lb.after(1000,update)
 
@@ -357,8 +357,8 @@ load_btn.grid(row=1, column=0)
 score_blue_lb = tk.Label(blue_team_frame, text="0", font=("Rockwell",300), bg="#00aeef", fg="white")
 score_blue_lb.grid(row=0, column=0,sticky = "w")
 
-blue_team_name_lb = tk.Entry(blue_config_name_frame, text="Enter Name", font=("Rockwell", 20), bg= "#00aeef", fg="white")
-blue_team_name_lb.grid(row=0, column=2, sticky="n")
+blue_team_name_ent = tk.Entry(blue_config_name_frame, text="Enter Name", font=("Rockwell", 20), bg= "#00aeef", fg="white", justify = CENTER)
+blue_team_name_ent.grid(row=0, column=2, sticky="n")
 
 blue_config_btn_1 = tk.Button(blue_config_frame, text="0", font=("Rockwell", 20), padx=10, pady=10, command= set_score_1a)
 blue_config_btn_1.grid(row=2, column=0)
@@ -385,8 +385,8 @@ blue_config_add_btn_3.grid(row=3, column=2)
 score_red_lb = tk.Label(red_team_frame, text="0", font =("Rockwell",300), bg="#ba014e", fg="white")
 score_red_lb.grid(row=0, column=0, sticky="e")
 
-red_team_name_lb = tk.Entry(red_config_name_frame, text="Enter Name", font=("Rockwell", 20), bg= "#ba014e", fg="white")
-red_team_name_lb.grid(row=0, column=2, sticky="n")
+red_team_name_ent = tk.Entry(red_config_name_frame, text="Enter Name", font=("Rockwell", 20), bg= "#ba014e", fg="white", justify = CENTER)
+red_team_name_ent.grid(row=0, column=2, sticky="n")
 
 red_config_btn_1 = tk.Button(red_config_frame, text="0", font=("Rockwell", 20), padx=10, pady=10, command = set_score_1b)
 red_config_btn_1.grid(row=1, column=0)
