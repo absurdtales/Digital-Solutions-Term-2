@@ -69,8 +69,8 @@ def SaveValues():
         data_file.write(str(root.set_score_1b) + "\n")
         data_file.write(str(root.set_score_2b) + "\n")
         data_file.write(str(root.set_score_3b) + "\n")
-        data_file.write(score_blue_lb.cget("text") + "\n")
-        data_file.write(score_red_lb.cget("text") + "\n")
+        data_file.write(score_blue_lb_str.get() + "\n")
+        data_file.write(score_red_lb_str.get())
 
 def OpenValues():
     with open("string.txt", "r") as data_file:
@@ -87,47 +87,77 @@ def OpenValues():
         line_to_read_10 = all_lines[9]
         line_to_read_11 = all_lines[10]
 
-        blue_team_ent_str = line_to_read_1
-        root.time = line_to_read_3
+        blue_team_ent_str.set(line_to_read_1)
+        red_team_ent_str.set(line_to_read_2)
+
+        root.time = int(line_to_read_3)
+        root.current_time = root.time
+
+        root.set_score_1a = int(line_to_read_4)
+        root.current_score_1a = root.set_score_1a
+        blue_config_btn_1.config(text=(root.current_score_1a))
+
+        root.set_score_2a = int(line_to_read_5)
+        root.current_score_2a = root.set_score_2a
+        blue_config_btn_2.config(text=(root.current_score_2a))
+
+        root.set_score_3a = int(line_to_read_6)
+        root.current_score_3a = root.set_score_3a
+        blue_config_btn_3.config(text=(root.current_score_3a))
+
+        root.set_score_1b = int(line_to_read_7)
+        root.current_score_1b = root.set_score_1b
+        red_config_btn_1.config(text=(root.current_score_1b))
+
+        root.set_score_2b = int(line_to_read_8)
+        root.current_score_2b = root.set_score_2b
+        red_config_btn_2.config(text=(root.current_score_2b))
+
+        root.set_score_3b = int(line_to_read_9)
+        root.current_score_3b = root.set_score_3b
+        red_config_btn_3.config(text=(root.current_score_3b))
+
+        score_blue_lb_str.set(line_to_read_10)
+        score_red_lb_str.set(line_to_read_11)
 
 
 def apply_1a():
     root.sum_blue = root.current_score_1a + root.current_final_score_blue
-    score_blue_lb.config(text=(root.sum_blue))
+    score_blue_lb_str.set(root.sum_blue)
     root.current_final_score_blue = root.sum_blue
 
 def apply_2a():
     root.sum_blue = root.current_score_2a + root.current_final_score_blue
-    score_blue_lb.config(text=(root.sum_blue))
+    score_blue_lb_str.set(root.sum_blue)
     root.current_final_score_blue = root.sum_blue
 
 def apply_3a():
     root.sum_blue = root.current_score_3a + root.current_final_score_blue
-    score_blue_lb.config(text=(root.sum_blue))
+    score_blue_lb_str.set(root.sum_blue)
     root.current_final_score_blue = root.sum_blue
 
 def reset_blue():
     root.current_final_score_blue = 0
-    score_blue_lb.config(text=(root.current_final_score_blue))
+    score_blue_lb_str.set(root.current_final_score_blue)
 
 def reset_red():
     root.current_final_score_red = 0
-    score_red_lb.config(text=(root.current_final_score_red))
+    score_red_lb_str.set(root.current_final_score_red)
 
 
 def apply_1b():
     root.sum_red = root.current_score_1b + root.current_final_score_red
-    score_red_lb.config(text=(root.sum_red))
+    score_red_lb_str.set(root.sum_red)
     root.current_final_score_red = root.sum_red
 
 def apply_2b():
     root.sum_red = root.current_score_2b + root.current_final_score_red
-    score_red_lb.config(text=(root.sum_red))
+    score_red_lb_str.set(root.sum_red)
     root.current_final_score_red = root.sum_red
 
 def apply_3b():
     root.sum_red = root.current_score_3b + root.current_final_score_red
-    score_red_lb.config(text=(root.sum_red))
+    score_red_lb_str.set(root.sum_red)
     root.current_final_score_red = root.sum_red
 
 
@@ -388,7 +418,8 @@ load_btn = tk.Button(save_button_frame, text="Load", font=("Rockwell",12), padx=
 load_btn.grid(row=1, column=0)
 
 # Left of the Screen
-score_blue_lb = tk.Label(blue_team_frame, text="0", font=("Rockwell",300), bg="#00aeef", fg="white")
+score_blue_lb_str = tk.StringVar(blue_team_frame, value='0')
+score_blue_lb = tk.Label(blue_team_frame, textvariable= score_blue_lb_str, height=1, width=2, font=("Rockwell",300), bg="#00aeef", fg="white")
 score_blue_lb.grid(row=0, column=0,sticky = "w")
 
 blue_team_ent_str = tk.StringVar(blue_config_name_frame, value='Enter Team Name')
@@ -417,7 +448,8 @@ blue_config_add_btn_3 = tk.Button(blue_config_frame, text="Add", font=("Rockwell
 blue_config_add_btn_3.grid(row=3, column=2)
 
 # Right of the Screen
-score_red_lb = tk.Label(red_team_frame, text="0", font =("Rockwell",300), bg="#ba014e", fg="white")
+score_red_lb_str = tk.StringVar(red_team_frame, value='0')
+score_red_lb = tk.Label(red_team_frame, textvariable=score_red_lb_str, height=1, width=2, font =("Rockwell",300), bg="#ba014e", fg="white")
 score_red_lb.grid(row=0, column=0, sticky="e")
 
 red_team_ent_str = tk.StringVar(red_config_name_frame, value='Enter Team Name')
