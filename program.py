@@ -5,11 +5,14 @@ import time
 pygame.mixer.init()
 
 def format_time(time):
+    # This function formats the time into minutes and seconds
     minutes = time // 60
     seconds = time % 60
     return f"{minutes}:{seconds}"
 
 def update():
+    # This function updates the time by subtracting one second from the current time, 
+    # when the timer hits zero, a sound is played and the timer stops then resets
     if root.running:
         root.current_time -= 1
     if root.current_time <=0:
@@ -22,6 +25,7 @@ def update():
     time_lb.after(1000,update)
      
 def start():
+    # This function starts the timer as well as activate the three second countdown
     pygame.mixer.music.load("/Users/hunterbarrett/Desktop/2021/Digital Solutions/Term 2 Work/FIA2 Resources/sound effects/Free 3 second intro countdown with tunnel effect sound and AI robot voice.mp3")
     pygame.mixer.music.play(0)
     time.sleep(3)
@@ -29,13 +33,17 @@ def start():
 
 
 def pause():
+    # This function pauses the timer
     root.running = False
 
 def reset():
+    # This function resets the timer to the user input seconds value
     root.running = False
     root.current_time = root.time
 
 def set_time():
+    # This function opens a new window and allows the user to input the desired amount of seconds. 
+    # It makes the current time variable the desired amount of seconds that the user put in.
     top = tk.Toplevel()
     top.title("Set Time")
     top.geometry("200x150")
@@ -59,6 +67,7 @@ def set_time():
     cancel_btn.grid(row=2,column=1)
 
 def SaveValues():
+    # This function gathers all the program values, and puts them into a .txt file for later retrieval
     with open("string.txt","w") as data_file:
         data_file.write(blue_team_ent_str.get() + "\n")
         data_file.write(red_team_ent_str.get() + "\n")
@@ -73,6 +82,7 @@ def SaveValues():
         data_file.write(score_red_lb_str.get())
 
 def OpenValues():
+    # This function reads the .txt file, and reassigns all the values to the program.
     with open("string.txt", "r") as data_file:
         all_lines = data_file.readlines()
         line_to_read_1 = all_lines[0]
@@ -124,6 +134,7 @@ def OpenValues():
 
 
 def apply_1a():
+    # This function adds or subtracts the score value depending on what the user put in
     root.sum_blue = root.current_score_1a + root.current_final_score_blue
     score_blue_lb_str.set(root.sum_blue)
     root.current_final_score_blue = root.sum_blue
@@ -139,6 +150,7 @@ def apply_3a():
     root.current_final_score_blue = root.sum_blue
 
 def reset_blue():
+    # This function puts the score back to 0
     root.current_final_score_blue = 0
     score_blue_lb_str.set(root.current_final_score_blue)
 
@@ -164,6 +176,7 @@ def apply_3b():
 
 
 def set_score_1a():
+    # This function opens a new window and allows the user to input a value to add or subtract from the score. 
     top = tk.Toplevel()
     top.title("Set Score")
     top.geometry = ("200x150")
@@ -304,17 +317,18 @@ def set_score_3b():
 
 
 # --- Main Program ---
-# Create Window
+# Creating Tkinter window
 root = tk.Tk()
 root.title("Scoreboard Program")
 root.geometry("1920x1080")
 root.resizable = (False,False)
 
+# Defining time and score values for the set_time() and set_score() functions to work
+
 root.time = 330
 root.current_time = root.time
 root.running = False
 
-# Defining some things
 root.sum_blue = 0
 root.current_final_score_blue = root.sum_blue
 
@@ -347,7 +361,7 @@ root.running = False
 
 root.running = False
 
-# Create elements
+# Creating elements to showcase in Tkinter window
 # Frames
 left_frame = tk.Frame(root)
 left_frame.grid(row = 0, column = 0)
@@ -358,7 +372,7 @@ middle_frame.grid(row=0, column=1, sticky="n")
 right_frame = tk.Frame(root)
 right_frame.grid(row=0, column=2, sticky = "n")
 
-# Corner left of screen
+# Top left of screen
 save_button_frame = tk.Frame(left_frame)
 save_button_frame.config(bg = '#545f66')
 save_button_frame.grid(row=0, column=0, sticky="NW")
@@ -383,7 +397,7 @@ red_config_name_frame.grid(row=1, column=0)
 red_config_frame = tk.Frame(right_frame, padx=50, pady=20)
 red_config_frame.grid(row=2, column=0)
 
-# Image files/Resizing
+# Opening image files for buttons and then resizing them
 photo_1 = tk.PhotoImage(file = "/Users/hunterbarrett/Desktop/2021/Digital Solutions/Term 2 Work/mock ups gents/icons/noun_play_3923854.png")
 photo_1_image = photo_1.subsample(20, 20)
 
@@ -396,6 +410,7 @@ photo_3_image = photo_3.subsample(20, 20)
 photo_4 = tk.PhotoImage(file = "/Users/hunterbarrett/Desktop/2021/Digital Solutions/Term 2 Work/mock ups gents/icons/noun_Save_9016 (1).png")
 photo_4_image = photo_4.subsample(15, 15)
 
+# Placing Tkinter elements into different frames
 # Middle of the Screen
 time_lb = tk.Label(middle_frame,text=format_time(root.current_time),font=("Rockwell",200))
 time_lb.grid(row=0,column=0)
@@ -412,7 +427,7 @@ reset_btn.grid(row=3,column=0, sticky="WE", pady=10, padx=30)
 set_btn = tk.Button(middle_frame,text="Set",font=("Rockwell",50),command=set_time)
 set_btn.grid(row=4,column=0,sticky="WE", pady=10, padx=30)
 
-# Corner Left of the Screen
+# Top left of the screen
 save_btn = tk.Button(save_button_frame, image = photo_4_image, padx=10, pady=10, command=SaveValues)
 save_btn.grid(row=0, column=0)
 
@@ -479,9 +494,7 @@ red_config_add_btn_2.grid(row=2, column=1)
 red_config_add_btn_3 = tk.Button(red_config_frame, text="Add", font=("Rockwell", 15), padx=5, pady=5, command = apply_3b)
 red_config_add_btn_3.grid(row=2, column=2)
 
-# Actual Scoreboard Numbers
-
-# Global Variables
+# Global variables?
 
 time_lb.after(1000,update())
 root.mainloop()
