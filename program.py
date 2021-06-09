@@ -119,6 +119,8 @@ def OpenValues():
 
         score_blue_lb_str.set(line_to_read_10)
         score_red_lb_str.set(line_to_read_11)
+        root.current_final_score_blue = int(line_to_read_10)
+        root.current_final_score_red = int(line_to_read_11)
 
 
 def apply_1a():
