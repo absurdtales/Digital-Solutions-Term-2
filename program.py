@@ -116,11 +116,11 @@ def OpenValues():
         root.set_score_3b = int(line_to_read_9)
         root.current_score_3b = root.set_score_3b
         red_config_btn_3.config(text=(root.current_score_3b))
-
-        score_blue_lb_str.set(line_to_read_10)
-        score_red_lb_str.set(line_to_read_11)
+        
         root.current_final_score_blue = int(line_to_read_10)
         root.current_final_score_red = int(line_to_read_11)
+        score_blue_lb_str.set(root.current_final_score_blue)
+        score_red_lb_str.set(root.current_final_score_red)
 
 
 def apply_1a():
