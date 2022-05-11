@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter.constants import ANCHOR, BOTH, CENTER, LEFT, N, RIGHT, TOP, TRUE
-import pygame
 import time
 pygame.mixer.init()
 
